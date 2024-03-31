@@ -11,27 +11,37 @@ const options = [
   { value: 'P4', label: 'P4' },
 ];
 
-const columns = [
-  {
-    title: 'count',
-    key: 'count',
-    
-    render: (data) => data[1],
-  },
-  {
-    title: 'amount',
-    key: 'amount',
-    render: (data) => data[2] > 0 ? <span style={{color: 'green'}}>{data[2]}</span> : <span style={{color: 'red'}}>{data[2]}</span>,
-  },
-  {
-    title: 'price',
-    key: 'price',
-    render: (data) => data[0],
-  },
-];
+
+const Page = ({type}) => {
+  const data = useSelector(state => state.book[type]);
+  return (
+    <table>
+    <thead>
+      <tr>
+        <th>Row</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {data.map((item, index) => (
+        <tr key={item.price}>
+          <td>{index + 1}</td>
+          <td>{type}</td>
+          <td>{item.price}</td>
+          <td>{item.amount}</td>
+          <td>{item.count}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  )
+
+}
 
 const App = () => {
-  const book = useSelector(state => state.book);
   const level = useSelector(state => state.level);
   const dispatch = useDispatch();
 
@@ -44,7 +54,10 @@ const App = () => {
           </Select.Option>
         ))}
       </Select>
-      <Table page pagination={false} size="small" virtual rowKey={(item) => item[3]} columns={columns} dataSource={book} />
+      <div style={{display: 'flex'}}>
+        <Page type="bid"/>
+        <Page type="ask"/>
+      </div>
     </>
  )
 };
