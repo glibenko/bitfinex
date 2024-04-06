@@ -1,7 +1,7 @@
 import React from 'react';
-import { Table, Select} from 'antd';
 import { useSelector, useDispatch} from 'react-redux';
 import actionTypes from './actionTypes';
+import { Select } from '.';
 
 const options = [
   { value: 'P0', label: 'P0' },
@@ -47,13 +47,14 @@ const App = () => {
 
  return  (
     <>
-      <Select value={level} onSelect={(val) => {dispatch({type: actionTypes.LEVEL, payload: val})}}>
+      <Select />
+      {/* <Select value={level} onSelect={(val) => {dispatch({type: actionTypes.LEVEL, payload: val})}}>
         {options.map((option) => (
           <Select.Option key={option.value} value={option.value}>
             {option.label}
           </Select.Option>
         ))}
-      </Select>
+      </Select> */}
       <div style={{display: 'flex'}}>
         <Page type="bid"/>
         <Page type="ask"/>
