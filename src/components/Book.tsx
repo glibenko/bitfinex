@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import actionTypes from './actionTypes';
-import { Select } from '.';
+import { Select } from './Select';
+import {Price, RootState } from '../types';
+import * as actions from '../store/actions';
 
 const options = [
   { value: 'P0', label: 'P0' },
@@ -13,7 +14,7 @@ const options = [
 
 
 const Page = ({type}) => {
-  const data = useSelector(state => state.book[type]);
+  const data = useSelector<RootState, Price[]>(state => state.book[type]);
   return (
     <table>
     <thead>
@@ -42,12 +43,17 @@ const Page = ({type}) => {
 }
 
 const App = () => {
-  const level = useSelector(state => state.level);
+  const level = useSelector<RootState, RootState['level']>(state => state.level);
   const dispatch = useDispatch();
+
+  const setLevel = useCallback((val) => {
+    dispatch(actions.setLevel(val.value));
+  }, [dispatch]);
 
  return  (
     <>
-      <Select />
+    lol
+      <Select onSelect={setLevel} options={options} value={level} />
       {/* <Select value={level} onSelect={(val) => {dispatch({type: actionTypes.LEVEL, payload: val})}}>
         {options.map((option) => (
           <Select.Option key={option.value} value={option.value}>

@@ -10,20 +10,20 @@ export const connect = (isConnect: boolean) => ({
   payload: isConnect
 });
 
-export const set = (data) => ({
+export const setBook = (data) => ({
   type: ACTION_TYPES.SET,
   payload: data
 });
 
-export const update = (data) => ({
+export const updateBook = (data) => ({
   type: ACTION_TYPES.UPDATE,
   payload: data
 });
 
-export const level = (val) => ({
+export const setLevel = (val) => ({
   type: ACTION_TYPES.LEVEL,
   payload: val
 });
 
 
-export type ActionType = ReturnType<typeof connect> | ReturnType<typeof set> | ReturnType<typeof update> | ReturnType<typeof level>;
+export type ActionType = ReturnType<typeof connect> | ReturnType<typeof setBook> | ReturnType<typeof updateBook> | ReturnType<typeof setLevel>;

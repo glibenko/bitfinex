@@ -1,18 +1,12 @@
+import { Book, Price, RootState } from '../types';
 import {ACTION_TYPES, ActionType} from './actions';
 
-const initialState: {
-  book: {
-    bid: {price: number, count: number, amount: number}[],
-    ask: {price: number, count: number, amount: number}[]
-  },
-  connect: boolean,
-  level: 'P0' | 'P1' | 'P2' | 'P3' | 'P4'
-} = {
+const initialState: RootState = {
   book: {
     bid: [],
     ask: []
   },
-  connect: false,
+  isConnected: false,
   level: 'P0'
 }
 
@@ -20,7 +14,7 @@ const separeteSet = (arr) => {
   const book = {
     bid: [],
     ask: []
-  } as typeof initialState['book'];
+  } as Book;
   for (const item of arr) {
     const [price, count, amount] = item;
     if (amount > 0) {
@@ -46,7 +40,7 @@ const update = (book, [price, count, amount]) => {
   return book;
 }
 
-export default function appReducer(state = initialState, action: ActionType) {
+export default function appReducer(state = initialState, action: ActionType): RootState {
   switch (action.type) {
     case ACTION_TYPES.SET:
       return {
@@ -68,7 +62,7 @@ export default function appReducer(state = initialState, action: ActionType) {
     case ACTION_TYPES.CONNECT:
       return {
         ...state,
-        connect: action.payload
+        isConnected: action.payload
       }
     case ACTION_TYPES.LEVEL:
       return {
